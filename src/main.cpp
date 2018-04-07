@@ -1,17 +1,22 @@
 #include <mbed.h>
 #include <rtos.h>
 #include <mbed_events.h>
+#include "components.h"
 
 Serial pc(USBTX, USBRX);
 Thread worker;
-EventQueue queue ;
+EventQueue queue;
+AssignmentBoard board;
 
-DigitalOut red(LED_RED,1); /* initial state 1 led is off */
-void flash_red(void) {
-    while(1){
-        red.write(1);
+LED red(board.K64F_RED_LED);
+
+void flash_red(void)
+{
+    while(1)
+    {
+        red.on();
         wait(0.5);
-        red.write(0);
+        red.off();
         wait(0.5);
     }
 }
